@@ -1,7 +1,4 @@
-use std::collections::HashMap;
-
 use serde::{Deserialize};
-use serde_json::{from_str, Value};
 use reqwest::blocking::get;
 
 #[derive(Deserialize, Default, Debug)]
@@ -16,6 +13,13 @@ pub struct Currency {
 }
 
 impl Currency {
+    /// get_list static method which return vector of currencies from mono API.
+    /// # Examples
+    /// ```
+    ///     use monobank_api::models::currency::Currency;
+    /// 
+    ///     let list = Currency::get_list();
+    /// ```
     pub fn get_list() -> Vec<Currency> {
         let url = "https://api.monobank.ua/bank/currency";
         
