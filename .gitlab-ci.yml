@@ -9,7 +9,7 @@ stages:
   - tests
 
 test-code:
-  stage: test
+  stage: tests
   script:
     - cargo doc
     - cargo test
