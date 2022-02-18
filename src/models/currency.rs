@@ -1,5 +1,9 @@
+use std::io::{Result, Error as IoError, ErrorKind};
 use serde::{Deserialize};
-use reqwest::blocking::get;
+use reqwest::{
+    blocking::get,
+    Error
+};
 
 #[derive(Deserialize, Default, Debug)]
 #[serde(rename_all = "camelCase")]
@@ -20,9 +24,17 @@ impl Currency {
     /// 
     ///     let list = Currency::get_list();
     /// ```
-    pub fn get_list() -> Vec<Currency> {
+    pub fn get_list() -> Result<Vec<Currency>> {
         let url = "https://api.monobank.ua/bank/currency";
-        
-        get(url).unwrap().json::<Vec<Currency>>().unwrap()
+
+        let result = match get(url) {
+            Ok(resp) => match resp.json::<Vec<Currency>>() {
+                Ok(currencies) => currencies,
+                Err(err) => return Err(IoError::new(ErrorKind::Other, err.to_string())),
+            },
+            Err(err) => return Err(IoError::new(ErrorKind::Other, err.to_string())),
+        };
+        Ok(result)
     }
+
 }
