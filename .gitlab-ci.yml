@@ -4,6 +4,7 @@ default:
   before_script:
     - rustc --version
     - cargo --version
+    - echo "TOKEN=uUhluDpbTLpQMRmGkRIOVsLl_rGwKKbjWAy7Tz4u-2mQ" >> .env
 
 stages:
   - tests
