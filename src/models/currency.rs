@@ -1,8 +1,7 @@
-use std::io::{Result, Error as IoError, ErrorKind};
+use std::{io::{Result, Error as IoError, ErrorKind}};
 use serde::{Deserialize};
 use reqwest::{
     blocking::get,
-    Error
 };
 
 #[derive(Deserialize, Default, Debug)]
@@ -25,7 +24,7 @@ impl Currency {
     ///     let list = Currency::get_list();
     /// ```
     pub fn get_list() -> Result<Vec<Currency>> {
-        let url = "https://api.monobank.ua/bank/currency";
+        let url = *crate::URLS.get("currency").unwrap();
 
         let result = match get(url) {
             Ok(resp) => match resp.json::<Vec<Currency>>() {
