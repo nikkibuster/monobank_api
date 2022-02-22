@@ -10,6 +10,7 @@ reqwest = { version = "0.11.9", features = ["json", "blocking"]}
 serde = { version = "1.0.136", features = ["derive"]}
 serde_json = "1.0.79"
 lazy_static = "1.4.0"
+chrono = "0.4.1"
 
 [dev-dependencies]
 dotenv = "0.15.0"
@@ -21,3 +22,7 @@ path = "tests/currency.rs"
 [[tests]]
 name = "account"
 path = "tests/account.rs"
+
+[[tests]]
+name = "statement"
+path = "tests/statement.rs"
