@@ -40,7 +40,7 @@ impl Account {
         let url = crate::URLS.get(MAP_KEY).unwrap();
 
         let mut req = Request::new(Method::GET, Url::from_str(*url).unwrap());
-        req.headers_mut().append(TOKEN_KEY, HeaderValue::from_str(token).unwrap());
+        req.headers_mut().append(crate::TOKEN_KEY, HeaderValue::from_str(token).unwrap());
 
         let client = Client::default();
 
