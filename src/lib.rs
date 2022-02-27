@@ -4,6 +4,7 @@ use lazy_static::lazy_static;
 pub const TOKEN_KEY: &str = "X-Token";
 
 pub mod models;
+pub mod client;
 
 lazy_static! {
     static ref URLS: HashMap<&'static str, &'static str> = {
