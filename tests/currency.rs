@@ -1,8 +1,8 @@
-use monobank_api::models;
+use monobank_api::models::currency::Currency;
 
 #[test]
 fn get_currency_list() {
-    let currencies = models::currency::Currency::get_list().unwrap();
+    let currencies = Currency::get_list().unwrap();
 
     assert_ne!(currencies.len(), 0);
 
