@@ -5,4 +5,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo {{secrets.MONOBANK_TOKEN}} >> .env
-      - run: cargo test
+      - run: ls
