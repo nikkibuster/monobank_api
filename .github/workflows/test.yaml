@@ -4,6 +4,6 @@ jobs:
   Monobank-tests:
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ secrets.MONOBANK_TOKEN }} >> .env
-      - run: ls
-      - run: cat .env
+      - run: export some="some variable"
+      - run: echo $some
+      - run: echo ${{ secrets.MONOBANK_TOKEN }}
