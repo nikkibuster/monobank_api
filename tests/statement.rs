@@ -1,5 +1,3 @@
-use std::str::FromStr;
-
 use monobank_api::models::statement;
 
 #[test]
