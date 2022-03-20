@@ -4,5 +4,7 @@ jobs:
   Monobank-tests:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+      - name: test
       - run: echo {{secrets.MONOBANK_TOKEN}} >> .env
-      - run: ls
+      - run: cargo test --verbose
