@@ -4,4 +4,4 @@ jobs:
   actions-tests:
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ secrets.MONOBANK_TOKEN }}
+      - run: echo {{ secrets.MONOBANK_TOKEN }}
