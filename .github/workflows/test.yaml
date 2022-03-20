@@ -1,0 +1,9 @@
+name: github actions test
+on: [push]
+jobs:
+  Monobank-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo {{secrets.MONOBANK_TOKEN}} >> .env
+      - run: ls
+      - run: cat .env
