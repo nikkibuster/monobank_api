@@ -4,7 +4,7 @@ use monobank_api::models::account;
 fn account_info() {
     dotenv::dotenv().ok();
 
-    let token  = std::env::var("TOKEN").unwrap();
+    let token  = std::env::var("MONOBANK_TOKEN").unwrap();
     let account = account::Account::get_info(token.as_str()).unwrap();
 
     print!("{:?}", account);

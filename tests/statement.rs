@@ -3,7 +3,7 @@ use monobank_api::models::statement;
 #[test]
 fn list_of_statement() {
     dotenv::dotenv().ok();
-    let token  = std::env::var("TOKEN").unwrap();
+    let token  = std::env::var("MONOBANK_TOKEN").unwrap();
     let account = "0";
     let from = 1645422807;
     let to = chrono::Utc::now().timestamp();
