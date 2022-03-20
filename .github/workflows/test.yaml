@@ -4,6 +4,4 @@ jobs:
   actions-tests:
     runs-on: ubuntu-latest
     steps:
-      - run: export some="some variable"
-      - run: echo "$some"
-      - run: echo "${{ secrets.MONOBANK_TOKEN }}"
+      - run: echo ${{ secrets.MONOBANK_TOKEN }}
