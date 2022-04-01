@@ -1,7 +1,0 @@
-name: github actions test
-on: [push]
-jobs:
-  actions-tests:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo {{ github.repository.secrets.MONOBANK_TOKEN }}

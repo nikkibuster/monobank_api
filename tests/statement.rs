@@ -8,6 +8,7 @@ fn list_of_statement() {
     let from = 1645422807;
     let to = chrono::Utc::now().timestamp();
 
+    std::thread::sleep(std::time::Duration::from_secs(60));
     let statements = statement::Statement::get_list(token.as_str(), account, from, to).unwrap();
 
     println!("{:?}", statements)
