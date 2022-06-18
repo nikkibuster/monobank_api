@@ -41,17 +41,12 @@ pub struct BaseClient;
 
 impl Banking for BaseClient{}
 
-trait Banking {
+pub trait Banking {
     fn get_currencies(&self) -> Result<Vec<Currency>, Error> {
         Currency::get_list()
     }
 }
 
-trait Personal {
-    fn get_info(&self) -> Result<Account, Error>;
-
-    fn get_statements(&self, account: &str, from: i64, to: i64) -> Result<Vec<Statement>, Error> ;
-}
 
 #[derive(Clone)]
 pub struct PersonalClient {
@@ -59,13 +54,16 @@ pub struct PersonalClient {
 }
 
 
-impl Banking for PersonalClient {}
-impl Personal for PersonalClient {
-    fn get_info(&self) -> Result<Account, Error> {
+impl PersonalClient {
+    pub fn get_currencies(&self) -> Result<Vec<Currency>, Error> {
+        Currency::get_list()
+    }
+
+    pub fn get_info(&self) -> Result<Account, Error> {
         Account::get_info(&self.token)
     }
 
-    fn get_statements(&self, account: &str, from: i64, to: i64) -> Result<Vec<Statement>, Error>  {
+    pub fn get_statements(&self, account: &str, from: i64, to: i64) -> Result<Vec<Statement>, Error>  {
         Statement::get_list(&self.token, account, from, to)
     }
 }

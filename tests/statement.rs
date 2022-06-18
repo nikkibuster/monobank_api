@@ -1,4 +1,7 @@
+use std::error::Error;
+
 use monobank_api::models::statement;
+
 
 #[test]
 fn list_of_statement() {
@@ -20,4 +23,12 @@ fn parse_date() {
 
     let date = chrono::NaiveDateTime::from_timestamp(temp.parse().unwrap(), 0);
     print!("{}", date)
+}
+
+#[test]
+fn client_test() -> Result<(), Box<dyn Error>> {
+    let client = monobank_api::from_env()?;
+
+    client.get_info()?;
+    Ok(())
 }
