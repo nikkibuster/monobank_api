@@ -1,4 +1,5 @@
-use std::collections::HashMap;
+use std::{collections::HashMap, fmt, error::Error, env::VarError};
+
 use lazy_static::lazy_static;
 
 pub const TOKEN_KEY: &str = "X-Token";
@@ -19,8 +20,45 @@ lazy_static! {
     };
 }
 
+#[derive(Debug)]
+struct ClientError {
+    details: String
+}
+
+impl ClientError {
+    fn new(msg: &str) -> ClientError {
+        ClientError{details: msg.to_string()}
+    }
+}
+
+impl fmt::Display for ClientError {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f,"{}",self.details)
+    }
+}
+
+impl Error for ClientError {
+    fn description(&self) -> &str {
+        &self.details
+    }
+}
+
 /// Build Personal client with token from environment variable
-pub fn from_env() -> client::PersonalClient {
-    let token = std::env::var(TOKEN).unwrap();
-    client::PersonalClientBuilder::new(token).build()
+pub fn from_env() -> Result<client::PersonalClient, VarError> {
+    let token = std::env::var(TOKEN)?;
+
+    Ok(client::PersonalClientBuilder::new(token).build())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_from_env() {
+        let client = from_env();
+        
+        println!("{:?}", client);
+    }
+
 }

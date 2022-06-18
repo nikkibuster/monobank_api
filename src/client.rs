@@ -6,8 +6,6 @@ use super::models::{
 
 use reqwest::Error;
 
-
-
 pub struct ClientBuilder;
 
 impl ClientBuilder {
@@ -59,6 +57,7 @@ trait Personal {
     }
 }
 
+#[derive(Debug)]
 pub struct PersonalClient {
     token: String
 }
