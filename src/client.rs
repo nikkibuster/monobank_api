@@ -30,7 +30,7 @@ pub struct PersonalClientBuilder {
 }
 
 impl PersonalClientBuilder {
-    fn new(token: String) -> Self {
+    pub fn new(token: String) -> Self {
         Self{token}
     }
 
