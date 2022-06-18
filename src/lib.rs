@@ -58,7 +58,6 @@ mod tests {
     fn test_from_env() -> Result<(), Box<dyn Error>> {
         let client = from_env()?;
         
-        println!("{:?}", client);
 
         Ok(())
     }
