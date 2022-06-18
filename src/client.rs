@@ -48,13 +48,9 @@ trait Banking {
 }
 
 trait Personal {
-    fn get_info(token: &str) -> Result<Account, Error> {
-        Account::get_info(token)
-    }
+    fn get_info(&self) -> Result<Account, Error>;
 
-    fn get_statements(token: &str, account: &str, from: i64, to: i64) -> Result<Vec<Statement>, Error> {
-        Statement::get_list(token, account, from, to)
-    }
+    fn get_statements(&self, account: &str, from: i64, to: i64) -> Result<Vec<Statement>, Error> ;
 }
 
 #[derive(Clone)]
@@ -64,4 +60,12 @@ pub struct PersonalClient {
 
 
 impl Banking for PersonalClient {}
-impl Personal for PersonalClient {}
+impl Personal for PersonalClient {
+    fn get_info(&self) -> Result<Account, Error> {
+        Account::get_info(&self.token)
+    }
+
+    fn get_statements(&self, account: &str, from: i64, to: i64) -> Result<Vec<Statement>, Error>  {
+        Statement::get_list(&self.token, account, from, to)
+    }
+}
