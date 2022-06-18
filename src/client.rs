@@ -57,7 +57,7 @@ trait Personal {
     }
 }
 
-#[derive(Debug)]
+#[derive(Clone)]
 pub struct PersonalClient {
     token: String
 }
