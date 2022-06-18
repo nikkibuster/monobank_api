@@ -93,4 +93,14 @@ impl Account {
 
         None
     }
+
+    pub fn white_card(&self) -> Option<&Card> {
+        for card in self.cards.iter() {
+            if card.is_white() {
+                return Some(card)
+            }
+        }
+
+        None
+    }
 }
