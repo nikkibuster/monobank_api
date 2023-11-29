@@ -48,7 +48,7 @@ impl Client {
 
         Ok(Self {
             client,
-            state: std::marker::PhantomData::default(),
+            state: std::marker::PhantomData,
         })
     }
 }
@@ -68,7 +68,7 @@ impl<State> Client<State> {
 }
 
 impl Client<Public> {
-    pub fn with_token<'a>(self, token: &'a str) -> Result<Client<Private>, ClientError> {
+    pub fn with_token(self, token: &str) -> Result<Client<Private>, ClientError> {
         if token.is_empty() {
             return Err(ClientError::Validation("token required"));
         }
@@ -85,7 +85,7 @@ impl Client<Public> {
             .build()?;
 
         Ok(Client {
-            client: client,
+            client,
             state: std::marker::PhantomData::<Private>,
         })
     }

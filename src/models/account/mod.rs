@@ -1,5 +1,3 @@
-use std::str::FromStr;
-
 mod card;
 use card::Card;
 
@@ -44,28 +42,16 @@ impl Account {
     pub fn web_hook_url(&self) -> &str {
         match &self.web_hook_url {
             Some(web_hook_url) => web_hook_url.as_str(),
-            None => "web hook is none",
+            None => "web hook is not set",
         }
     }
 
     pub fn main_card(&self) -> Option<&Card> {
-        for card in self.cards.iter() {
-            if card.is_main() {
-                return Some(card);
-            }
-        }
-
-        None
+        self.cards.iter().find(|c| c.is_main())
     }
 
     pub fn white_card(&self) -> Option<&Card> {
-        for card in self.cards.iter() {
-            if card.is_white() {
-                return Some(card);
-            }
-        }
-
-        None
+        self.cards.iter().find(|c| c.is_white())
     }
 
     pub fn cards(&self) -> Vec<Card> {

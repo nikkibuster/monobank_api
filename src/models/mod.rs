@@ -24,7 +24,7 @@ impl StatementReq {
         };
 
         let splits: Vec<&str> = base
-            .split("/")
+            .split('/')
             .map(|part| match part {
                 KEY_ACCOUNT => &self.account,
                 KEY_FROM => &from_str,
