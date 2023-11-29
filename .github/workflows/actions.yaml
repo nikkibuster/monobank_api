@@ -1,0 +1,8 @@
+name: monobank api tests
+on: [push]
+jobs:
+  Monobank-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: echo MONOBANK_TOKEN=${{ secrets.MONOBANK_TOKEN }} >> .env && cargo test --verbose

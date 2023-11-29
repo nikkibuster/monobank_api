@@ -29,6 +29,14 @@ impl Card {
         false
     }
 
+    pub fn is_white(&self) -> bool {
+        if self.card_type.is_white() {
+            return true
+        };
+
+        false
+    }
+
     pub fn id(&self) -> &str {
         self.id.as_str()
     }

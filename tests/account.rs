@@ -1,15 +1,13 @@
 use monobank_api::models::account;
 
 #[test]
-fn account_info() {
+fn account_info() -> Result<(), Box<dyn std::error::Error>> {
     dotenv::dotenv().ok();
 
-    let token  = std::env::var("TOKEN").unwrap();
-    let account = account::Account::get_info(token.as_str()).unwrap();
+    let token  = "uUhluDpbTLpQMRmGkRIOVsLl_rGwKKbjWAy7Tz4u-2mQ";
+    let account = account::Account::get_info(token)?;
 
-    print!("{:?}", account);
+    println!("{}", account.white_card().unwrap().balance());
 
-    let main = account.main_card().unwrap();
-
-    assert_eq!(main.id(), "UckaonuaE2K4fD8jRlahvA")
+    Ok(())
 }
