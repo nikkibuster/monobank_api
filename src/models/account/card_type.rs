@@ -1,9 +1,14 @@
 use serde::{Deserialize, Deserializer};
 
-#[derive(Default, Clone)]
+#[derive(Default, serde::Serialize, Clone, PartialEq, Eq)]
 pub enum CardType {
     Black,
     White,
+    Platinum,
+    Iron,
+    Fop,
+    Yellow,
+    EAid,
     #[default]
     None,
 }
@@ -27,6 +32,11 @@ impl std::fmt::Debug for CardType {
         match self {
             Self::Black => write!(f, "Black"),
             Self::White => write!(f, "White"),
+            Self::Platinum => write!(f, "Platinum"),
+            Self::Iron => write!(f, "Iron"),
+            Self::Fop => write!(f, "Fop"),
+            Self::Yellow => write!(f, "Yellow"),
+            Self::EAid => write!(f, "None"),
             Self::None => write!(f, "None"),
         }
     }
@@ -41,6 +51,11 @@ impl<'de> Deserialize<'de> for CardType {
         match card_type {
             "black" => return Ok(CardType::Black),
             "white" => return Ok(CardType::White),
+            "platinum" => return Ok(CardType::Platinum),
+            "iron" => return Ok(CardType::Iron),
+            "fop" => return Ok(CardType::Fop),
+            "yellow" => return Ok(CardType::Yellow),
+            "eAid" => return Ok(CardType::EAid),
             _ => return Ok(CardType::None),
         }
     }

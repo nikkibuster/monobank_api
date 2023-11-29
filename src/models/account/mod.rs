@@ -1,36 +1,35 @@
 use std::str::FromStr;
 
 mod card;
-use card::{format_balance, Card};
+use card::Card;
 
 mod card_type;
+mod jars;
 
-mod constants;
-use constants::*;
-
-use reqwest::{
-    blocking::{Client, Request},
-    header::HeaderValue,
-    Error, Method, Url,
-};
 use serde::Deserialize;
 
-#[derive(Deserialize, Debug, Default, Clone)]
+use self::jars::Jar;
+
+#[derive(Deserialize, serde::Serialize, Debug, Default, Clone, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct Account {
+    #[serde(rename = "clientId")]
     id: Option<String>,
     name: Option<String>,
+    permissions: Option<String>,
     web_hook_url: Option<String>,
 
     #[serde(rename = "accounts")]
     cards: Vec<Card>,
+
+    jars: Vec<Jar>,
 }
 
 /// private methods
 impl Account {
     pub(crate) fn format(&mut self) {
         for card in self.cards.iter_mut() {
-            format_balance(card)
+            card.format_balance()
         }
     }
 }

@@ -72,7 +72,7 @@ impl Client<Public> {
         let mut headers = reqwest::header::HeaderMap::new();
 
         headers.insert(
-            models::methods::TOKEN_KEY,
+            constants::TOKEN_KEY,
             reqwest::header::HeaderValue::from_str(token)?,
         );
 
@@ -125,7 +125,6 @@ impl Client<Private> {
 
 #[cfg(test)]
 mod tests {
-
     use super::*;
 
     #[tokio::test]
@@ -166,7 +165,7 @@ mod tests {
 
         let result = client.statements("0", from.timestamp(), 0).await?;
 
-        println!("{:?}", result);
+        assert!(!result.is_empty());
 
         Ok(())
     }

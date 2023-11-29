@@ -1,5 +1,5 @@
-pub mod currency;
 pub mod account;
-pub mod statement;
+pub mod currency;
 mod date;
 pub(crate) mod methods;
+pub mod statement;

@@ -1,31 +1,30 @@
-use reqwest::{
-    blocking::{Client, Request},
-    header::HeaderValue,
-    Error, Method, Url,
-};
 use serde::Deserialize;
 
 mod constants;
-use crate::models::date::Date;
 use constants::*;
 
-#[derive(Deserialize, Debug)]
-#[serde(rename = "camelCase")]
+use super::date::Date;
+
+#[derive(Deserialize, Debug, Clone, PartialEq)]
+#[serde(rename_all = "camelCase")]
 pub struct Statement {
-    id: String,
-    time: Date,
-    description: Option<String>,
-    mcc: i32,
-    hold: bool,
-    amount: f64,
-    operationAmount: f64,
-    currencyCode: i32,
-    commissionRate: i32,
-    balance: f64,
-    comment: Option<String>,
-    receipt_id: Option<String>,
-    counter_edrpou: Option<String>,
-    counter_iban: Option<String>,
+    pub id: String,
+    pub time: Date,
+    pub description: String,
+    pub mcc: i32,
+    pub hold: bool,
+    pub amount: f64,
+    pub operation_amount: f64,
+    pub currency_code: i32,
+    pub commission_rate: i32,
+    pub cashback_amount: f64,
+    pub balance: f64,
+    pub comment: Option<String>,
+    pub receipt_id: Option<String>,
+    pub invoice_id: Option<String>,
+    pub counter_edrpou: Option<String>,
+    pub counter_iban: Option<String>,
+    pub counter_name: Option<String>,
 }
 
 pub(crate) trait FormattedStatement {
@@ -36,7 +35,8 @@ impl FormattedStatement for Vec<Statement> {
     fn format(&mut self) {
         self.iter_mut().for_each(|st| {
             st.amount /= 100f64;
-            st.operationAmount /= 100f64;
+            st.operation_amount /= 100f64;
+            st.balance /= 100f64
         });
     }
 }
