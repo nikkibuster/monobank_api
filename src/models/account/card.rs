@@ -1,29 +1,27 @@
 use super::card_type::CardType;
 
-use serde::{Deserialize};
+use serde::Deserialize;
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, serde::Serialize, Debug, Default, Clone, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct Card {
-    id: String,
-    balance: f32,
-    creditLimit: i32,
-    
+    pub id: String,
+    pub send_id: String, // for send.monobank.ua
+    pub balance: f32,
+    pub credit_limit: i32,
+
     #[serde(rename = "type")]
-    card_type: CardType,
-    currency_code: i32,
-    cashback_type: String,
+    pub card_type: CardType,
+    pub currency_code: i32,
+    pub cashback_type: String,
+    pub masked_pan: Vec<String>,
+    pub iban: Option<String>,
 }
 
-
 impl Card {
-    pub fn balance(&self) -> f32 {
-        self.balance
-    }
-
     pub fn is_main(&self) -> bool {
         if self.card_type.is_black() && self.currency_code == 980 {
-            return true
+            return true;
         };
 
         false
@@ -31,17 +29,13 @@ impl Card {
 
     pub fn is_white(&self) -> bool {
         if self.card_type.is_white() {
-            return true
+            return true;
         };
 
         false
     }
 
-    pub fn id(&self) -> &str {
-        self.id.as_str()
+    pub(crate) fn format_balance(&mut self) {
+        self.balance /= 100f32
     }
-}
-
-pub fn format_balance(card: &mut Card) {
-    card.balance /= 100f32
 }
