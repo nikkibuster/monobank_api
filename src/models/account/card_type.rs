@@ -49,14 +49,14 @@ impl<'de> Deserialize<'de> for CardType {
     {
         let card_type: &str = Deserialize::deserialize(deserializer)?;
         match card_type {
-            "black" => return Ok(CardType::Black),
-            "white" => return Ok(CardType::White),
-            "platinum" => return Ok(CardType::Platinum),
-            "iron" => return Ok(CardType::Iron),
-            "fop" => return Ok(CardType::Fop),
-            "yellow" => return Ok(CardType::Yellow),
-            "eAid" => return Ok(CardType::EAid),
-            _ => return Ok(CardType::None),
+            "black" => Ok(CardType::Black),
+            "white" => Ok(CardType::White),
+            "platinum" => Ok(CardType::Platinum),
+            "iron" => Ok(CardType::Iron),
+            "fop" => Ok(CardType::Fop),
+            "yellow" => Ok(CardType::Yellow),
+            "eAid" => Ok(CardType::EAid),
+            _ => Ok(CardType::None),
         }
     }
 }
