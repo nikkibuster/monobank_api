@@ -35,10 +35,6 @@ impl Card {
         false
     }
 
-    pub fn id(&self) -> &str {
-        self.id.as_str()
-    }
-
     pub(crate) fn format_balance(&mut self) {
         self.balance /= 100f32
     }

@@ -25,15 +25,6 @@ pub struct Account {
     jars: Vec<Jar>,
 }
 
-/// private methods
-impl Account {
-    pub(crate) fn format(&mut self) {
-        for card in self.cards.iter_mut() {
-            card.format_balance()
-        }
-    }
-}
-
 /// getters block
 impl Account {
     pub fn id(&self) -> &str {
@@ -75,5 +66,19 @@ impl Account {
         }
 
         None
+    }
+
+    pub fn cards(&self) -> Vec<Card> {
+        self.cards.clone()
+    }
+
+    pub fn jars(&self) -> Vec<Jar> {
+        self.jars.clone()
+    }
+}
+
+impl crate::FormattedAmount for Account {
+    fn format(&mut self) {
+        self.cards.iter_mut().for_each(|card| card.format_balance())
     }
 }

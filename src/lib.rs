@@ -1,13 +1,15 @@
 use std::str::FromStr;
 
 use models::currency::Currency;
-use models::statement::FormattedStatement;
 
 use reqwest::Request;
 use thiserror::Error;
 
 mod constants;
 mod models;
+mod utils;
+
+pub(crate) use utils::FormattedAmount;
 
 use models::methods::Method;
 
@@ -29,6 +31,8 @@ pub enum ClientError {
     #[error("some internal error")]
     Internal,
 }
+
+pub use models::{StatementReq, StatementsArgs};
 
 pub struct Public;
 pub struct Private;
@@ -88,6 +92,7 @@ impl Client<Public> {
 }
 
 impl Client<Private> {
+    /// Get account info such id cards info and jars info
     pub async fn account_info(&self) -> Result<models::account::Account, ClientError> {
         let req = Request::new(
             reqwest::Method::GET,
@@ -100,13 +105,12 @@ impl Client<Private> {
         Ok(account)
     }
 
-    pub async fn statements(
+    ///
+    pub async fn statements<T: StatementsArgs>(
         &self,
-        account: &'static str,
-        from: i64,
-        to: i64,
+        args: T,
     ) -> Result<Vec<models::statement::Statement>, ClientError> {
-        let url = models::statement::prepare_url(account, from, to);
+        let url = args.unwrap().prepare_url();
 
         let req = Request::new(reqwest::Method::GET, reqwest::Url::from_str(&url)?);
 
@@ -159,13 +163,11 @@ mod tests {
 
         let client = Client::new()?.with_token(&token)?;
 
-        let from = chrono::Utc::now();
-
-        let from = from - chrono::Duration::hours(24);
-
-        let result = client.statements("0", from.timestamp(), 0).await?;
+        let result = client.statements(()).await?;
 
         assert!(!result.is_empty());
+
+        println!("{:?}", result);
 
         Ok(())
     }
