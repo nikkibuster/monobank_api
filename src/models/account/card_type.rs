@@ -1,9 +1,11 @@
 use serde::{Deserialize, Deserializer};
 
+#[derive(Default, Clone)]
 pub enum CardType {
     Black,
     White,
-    None
+    #[default]
+    None,
 }
 
 impl CardType {
@@ -33,12 +35,13 @@ impl std::fmt::Debug for CardType {
 impl<'de> Deserialize<'de> for CardType {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
-        D: Deserializer<'de> {
-            let card_type: &str = Deserialize::deserialize(deserializer)?;
-            match card_type {
-                "black" => return Ok(CardType::Black),
-                "white" => return Ok(CardType::White),
-                _ => return Ok(CardType::None),
-            }
+        D: Deserializer<'de>,
+    {
+        let card_type: &str = Deserialize::deserialize(deserializer)?;
+        match card_type {
+            "black" => return Ok(CardType::Black),
+            "white" => return Ok(CardType::White),
+            _ => return Ok(CardType::None),
+        }
     }
 }

@@ -1,8 +1,5 @@
-use serde::{Deserialize};
-use reqwest::{
-    blocking::get,
-    Error
-};
+use reqwest::{blocking::get, Error};
+use serde::Deserialize;
 
 use crate::models::date::Date;
 
@@ -14,7 +11,7 @@ pub struct Currency {
     date: Date,
     rate_buy: Option<f32>,
     rate_sell: Option<f32>,
-    rate_cross: Option<f32>
+    pub rate_cross: Option<f32>,
 }
 
 impl Currency {
@@ -22,11 +19,11 @@ impl Currency {
     /// # Examples
     /// ```
     ///     use monobank_api::models::currency::Currency;
-    /// 
+    ///
     ///     let list = Currency::get_list();
     /// ```
     pub fn get_list() -> Result<Vec<Currency>, Error> {
-        let url = crate::URLS.get("currency").unwrap();
+        let url = crate::models::methods::URLS.get("currency").unwrap();
 
         get(*url)?.json::<Vec<Currency>>()
     }
