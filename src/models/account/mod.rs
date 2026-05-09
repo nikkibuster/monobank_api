@@ -20,7 +20,7 @@ pub struct Account {
     #[serde(rename = "accounts")]
     cards: Vec<Card>,
 
-    jars: Vec<Jar>,
+    jars: Option<Vec<Jar>>,
 }
 
 /// getters block
@@ -58,7 +58,7 @@ impl Account {
         self.cards.clone()
     }
 
-    pub fn jars(&self) -> Vec<Jar> {
+    pub fn jars(&self) -> Option<Vec<Jar>> {
         self.jars.clone()
     }
 }
