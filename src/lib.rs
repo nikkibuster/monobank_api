@@ -105,7 +105,7 @@ impl Client<Private> {
         Ok(account)
     }
 
-    ///
+    /// Return statements for account in from to time range
     pub async fn statements<T: StatementsArgs>(
         &self,
         args: T,
